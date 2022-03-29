@@ -1,3 +1,5 @@
+from configparser import ConfigParser
+import os
 import pandas as pd
 import neattext.functions as nfx
 import re
@@ -26,9 +28,15 @@ def cleanText(text):
 
 
 # loading the data
-data = pd.read_csv(r"RapidApp\\static\\cleaned_data.csv")
+config_file = r'H:\\MyLearningProjects\\PythonProjects\\TextAnalysisNlp\\config.ini'
+config = ConfigParser()
+config.read(config_file)
+csv_files = config['path']['static_csvfiles']
 
-X = pd.DataFrame(data['clean_text'])  # type: ignore
+path = os.path.join(csv_files,'cleaned_data.csv')
+data = pd.read_csv(path)
+
+X = pd.DataFrame(data['clean_text'])
 y = data[['label']]
 
 # declaring the encoder
@@ -47,7 +55,7 @@ encoded_docs = tokenizer.texts_to_sequences(tweets)
 padded_sequence = pad_sequences(encoded_docs, maxlen=200)
 
 # loading the model
-model = load_model(r'RapidApp\\static\\Model_Date_Time_2022_03_09__14_05_39_Test_accuracy_76.32.h5')
+model = load_model(r'H:\\MyLearningProjects\\PythonProjects\\TextAnalysisNlp\\static\\Model_Date_Time_2022_03_09__14_05_39_Test_accuracy_76.32.h5')
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 
@@ -76,32 +84,33 @@ def get_accuracy(y_test, y_pred):
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------#
-"""
-    testing on unseen data
-    0 is negative after onehot encoding
-    1 is positive
-    give path to the file you want to predict sentiment on
-"""
-df = pd.read_csv(r"RapidApp\\static\\test_data.csv")
+# """
+#     testing on unseen data
+#     0 is negative after onehot encoding
+#     1 is positive
+#     give path to the file you want to predict sentiment on
+# """
+# df = pd.read_csv(r"RapidApp\\static\\test_data.csv")
 
-# data preprocessing
-df = df.dropna()
-df.loc[(df.label == 0.0), 'label'] = 1
-df['predicted_labels'] = None
-df['clean_text'] = df['text'].apply(cleanText)
+# # data preprocessing
+# df = df.dropna()
+# # df.loc[(df.label == 0.0), 'label'] = 1
+# # df['predicted_labels'] = None
+# df['clean_text'] = df['text'].apply(cleanText)
 
-# predicting for new data
-x_test = df.clean_text.values
-x_test = tokenizer.texts_to_sequences(x_test)
-x_test = pad_sequences(x_test, maxlen=200)
-y_pred = model.predict(x_test)
-y_test = df[['label']]
-y_test = enc.transform(y_test).toarray()  # type: ignore
-df['predicted_labels'] = [i.argmax() for i in y_pred]
-df.loc[(df.predicted_labels == 0), 'predicted_labels'] = -1
+# # predicting for new data
+# x_test = df.clean_text.values
+# x_test = tokenizer.texts_to_sequences(x_test)
+# x_test = pad_sequences(x_test, maxlen=200)
+# y_pred = model.predict(x_test)
+# y_test = df[['label']]
+# y_test = enc.transform(y_test).toarray()  # type: ignore
+# df['predicted_labels'] = [i.argmax() for i in y_pred]
+# df.loc[(df.predicted_labels == 0), 'predicted_labels'] = -1
 
-# give path where you want to save updated data
-df.to_csv(r"RapidApp\\static\\predicted.csv", index=False)
+# # give path where you want to save updated data
+# df.to_csv(r"RapidApp\\static\\predicted.csv", index=False)
 
 # printing accuracy on current dataset
 # print(get_accuracy(y_test,y_pred))
+print(predict_sentiment('whys does the tv listings in my box and the planner on the actual tv think it friday the th february have i lost the plot or does anyone else have this issue'))
