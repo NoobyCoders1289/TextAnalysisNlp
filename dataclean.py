@@ -2,7 +2,7 @@
 from datetime import date
 import json
 import os
-import random
+# import random
 import re
 # Hide warnings
 import warnings
@@ -50,11 +50,13 @@ def cleanTxt(text):
 
 # LOADING DATA SET
 def load_data(path):
-    df = pd.read_csv(os.path.join(path, 'testdata/labeledtest1.csv'))
+    df = pd.read_csv(os.path.join(path, 'rawdata/train_data.csv'))
     print("a: ", df.shape)
     df.dropna(subset=['tweet'], inplace=True)
     print(f"duplicated count: {df[df.duplicated()].shape}")
-    df.drop_duplicates(subset=['tweet_id', 'user_id', 'created_at', 'tweet'], keep='last', inplace=True,
+    # df.drop_duplicates(subset=['tweet_id', 'user_id', 'created_at', 'tweet'], keep='last', inplace=True,
+    #                    ignore_index=True)
+    df.drop_duplicates(subset=['tweet'], keep='last', inplace=True,
                        ignore_index=True)
     print("b: ", df.shape)
     df['clean_text'] = df['tweet'].apply(appost_remove)
@@ -64,7 +66,7 @@ def load_data(path):
     d1 = today.strftime("%d_%m_%Y")
     # ---------------------------------
     # print(os.path.join(path,f'CleanedData{d1}.csv'))
-    df.to_csv(os.path.join(path, f'cleandata/CleanedData{d1}.csv'), index=False)
+    df.to_csv(os.path.join(path, f'cleandata/TrainData{d1}.csv'), index=False)
 
 
 if __name__ == '__main__':
