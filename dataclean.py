@@ -61,6 +61,8 @@ def load_data(path):
     print("b: ", df.shape)
     df['clean_text'] = df['tweet'].apply(appost_remove)
     df['clean_text'] = df['clean_text'].apply(cleanTxt)
+    
+
     # --------------------------------
     today = date.today()
     d1 = today.strftime("%d_%m_%Y")
