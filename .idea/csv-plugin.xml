@@ -3,7 +3,21 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\static\csv_files\cleandata\CleanedData29_03_2022.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\static\csv_files\cleandata\CleanedData30_03_2022.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\static\csv_files\cleandata\CleanedDatav.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -17,7 +31,28 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\static\csv_files\cleandata\TrainData31_03_2022.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\static\csv_files\cleandata\cleaned_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\static\csv_files\rawdata\train_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\static\csv_files\testdata\labeledtest1.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
