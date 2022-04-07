@@ -1,10 +1,10 @@
 import datetime
 import json
 import pandas as pd
+from dateutil import parser
 
 df = pd.read_csv('test_data.csv')
 df.shape
-df['date'] = pd.to_datetime(df['created_at'],format='%Y-%m-%d')
 neg=[]
 pos=[]
 i=j=1
@@ -14,18 +14,26 @@ for index in df.index:
     if df['label'][index]==-1:
         dic['id']=i
         dic['text']=df['clean_text'][index]
-        dat = df['created_at'][index]
-        if isinstance(dat,str):
-            dic['date'] = datetime.datetime.fromtimestamp(dat)
+        date_ = df['created_at'][index]
+        if isinstance(date_,str):
+            date_ = datetime.datetime.strptime(date_,"%Y-%m-%dT%H:%M:%S.000Z").strftime('%Y-%m-%d')
+            dic['date'] = date_
         i+=1
         neg.append(dic)
     else:
         dic['id'] = j
         dic['text'] = df['clean_text'][index]
-        dat = df['created_at'][index]
-        if isinstance(dat,str):
-            dic['date'] = datetime.datetime.strptime(dat,"%Y-%m-%dT%H:%M:%SZ")        
+        date_ = df['created_at'][index]
+        if isinstance(date_,str):
+            date_ = datetime.datetime.strptime(date_,"%Y-%m-%dT%H:%M:%S.000Z").strftime('%Y-%m-%d')
+            dic['date'] = date_        
         j+=1
         pos.append(dic)
 
-print(json.dumps(neg,indent=2))
+
+start_date =  "2015-02-28"
+endDate = "2015-03-01"
+for i in neg:
+    print(type(start_date))
+    if i['date'] >= start_date and i['date'] < endDate:
+        print(i)
