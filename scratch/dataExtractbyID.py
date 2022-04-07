@@ -158,6 +158,7 @@ class TwitterAPIData:
             return dic
 
         tweet_list = []
+        # ------------self.json_response['tweets'] vs self.json_response['users']----------#
         for data in self.json_response['data']:
             tweet_dic = {}
             for user in self.json_response['includes']['users']:
@@ -165,7 +166,7 @@ class TwitterAPIData:
                     tweet_dic = getDataframe(tweet_dic, data, user)
             tweet_list.append(tweet_dic)
 
-        # ------------self.json_response['tweets'] vs self.json_response['users']----------#
+        # ------------self.json_response['re-tweets'] vs self.json_response['users']----------#
         with open(os.getenv('COMAPANY_DATA'), 'r+', encoding='utf-8') as f:  # type: ignore
             telecom_ids = json.load(f)
         reply_tweet = []
