@@ -5,8 +5,11 @@
     <orderEntry type="jdk" jdkName="Python 3.9 (TextAnalysisNlp)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
     <option name="myDocStringFormat" value="Plain" />
   </component>
+>>>>>>> b5112003d06b6ade039d197190a71f32cf499e2d
 </module>
